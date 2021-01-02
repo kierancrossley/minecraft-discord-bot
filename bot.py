@@ -33,6 +33,7 @@ async def set_status():
         embed=discord.Embed(title="🔴 SERVER IS NOW OFFLINE", description="We'll be back soon! If the server does not come back up, please @ a big brain.", color=0xff4238)
         await channel.send(embed=embed)
         offlineSent = True
+        await asyncio.sleep(30)
         
     await bot.change_presence(status=pres,activity=discord.Activity(type=discord.ActivityType.watching, name=msg))
     print("> Successful query! Status updated.")
