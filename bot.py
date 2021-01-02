@@ -30,10 +30,10 @@ async def set_status():
         channel = bot.get_channel(793501401832620072)
         pres, msg = discord.Status.dnd, "server is offline!"
 
-        embed=discord.Embed(title="🔴 SERVER IS NOW OFFLINE", description="We'll be back soon! If the server does not come back up, please @ a big brain.", color=0xff4238)
-        await channel.send(embed=embed)
-        offlineSent = True
-        await asyncio.sleep(30)
+        if not offlineSent:
+            embed=discord.Embed(title="🔴 SERVER IS NOW OFFLINE", description="We'll be back soon! If the server does not come back up, please @ a big brain.", color=0xff4238)
+            await channel.send(embed=embed)
+            offlineSent = True
         
     await bot.change_presence(status=pres,activity=discord.Activity(type=discord.ActivityType.watching, name=msg))
     print("> Successful query! Status updated.")
