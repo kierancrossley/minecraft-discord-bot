@@ -1,0 +1,3 @@
+git+https://github.com/Rapptz/discord.py
+git+https://github.com/Dinnerbone/mcstatus
+asyncio==3.9.1

@@ -1,6 +1,7 @@
 from mcstatus import MinecraftServer
 import asyncio
 import discord
+import os
 from discord.ext import commands
 from discord.ext import tasks
 
@@ -70,4 +71,4 @@ async def on_ready():
     print(f'\n{divider}\nLogged in as {bot.user}!\n{divider}\n')
     await set_status.start()
 
-bot.run(dotenv.token)
+bot.run(os.environ['token'])
