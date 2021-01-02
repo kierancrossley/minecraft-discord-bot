@@ -36,7 +36,7 @@ async def set_status():
             offlineSent = True
         
     await bot.change_presence(status=pres,activity=discord.Activity(type=discord.ActivityType.watching, name=msg))
-    print("> Successful query! Status updated.")
+    print(f"> Successful query! Status updated to: {msg}")
 
         
 @bot.command()
