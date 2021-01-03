@@ -1,6 +1,7 @@
 import asyncio
 import discord
 import os
+from os import chdir, makedirs, remove
 from os.path import isfile, dirname, realpath
 from mcstatus import MinecraftServer
 from discord.ext import commands
