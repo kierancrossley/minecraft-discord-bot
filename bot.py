@@ -13,13 +13,13 @@ offlineSent = False
 async def set_status():
     global offlineSent
     try:
-        server = MinecraftServer.lookup("51.91.61.56:41435")
+        server = MinecraftServer.lookup("51.89.145.251:25565")
         status = server.status()
         
         if offlineSent:
-            channel = bot.get_channel(793501401832620072)
+            channel = bot.get_channel(803636093693460480)
             embed=discord.Embed(title="🟢 SERVER IS BACK ONLINE", description="We're back! Come join us again.", color=0x54ce4b)
-            await channel.send(embed=embed)
+            await channel.send(embed=embed, delete_after=900.0)
             offlineSent = False
 
         if status.players.online == status.players.max:
@@ -27,12 +27,12 @@ async def set_status():
         else:
             pres, msg = discord.Status.online, f"{status.players.online}/{status.players.max} players."
     except ConnectionRefusedError:
-        channel = bot.get_channel(793501401832620072)
+        channel = bot.get_channel(803636093693460480)
         pres, msg = discord.Status.dnd, "server is offline!"
 
         if not offlineSent:
             embed=discord.Embed(title="🔴 SERVER IS NOW OFFLINE", description="We'll be back soon! If the server does not come back up, please @ a big brain.", color=0xff4238)
-            await channel.send(embed=embed)
+            await channel.send(embed=embed, delete_after=900.0)
             offlineSent = True
         
     await bot.change_presence(status=pres,activity=discord.Activity(type=discord.ActivityType.watching, name=msg))
@@ -42,7 +42,7 @@ async def set_status():
 @bot.command()
 async def status(ctx):
     try:
-        server = MinecraftServer.lookup("51.91.61.56:41435")
+        server = MinecraftServer.lookup("51.89.145.251:25565")
         status, query = server.status(), server.query()
 
         embed=discord.Embed(title="🟢 ONLINE", color=0x54ce4b)
@@ -57,14 +57,9 @@ async def status(ctx):
         embed.set_footer(text=f"Requested by {ctx.message.author}.")
         await ctx.send(embed=embed)
 
-
-@bot.command()
-async def dynmap(ctx):
-    await ctx.send("🗺️ The dynmap can be found here: http://51.91.61.56:11435/")
-
 @bot.command()
 async def ip(ctx):
-    await ctx.send("🖥️ Connect via `mypeeburns.serv.gs` or `51.91.61.56:41435`. Make sure you're whitelisted!")
+    await ctx.send("🖥️ Connect via `noahsuckscharlie.serv.gs` or `51.89.145.251:25565`. Make sure you're whitelisted!")
 
 @bot.event
 async def on_ready():
