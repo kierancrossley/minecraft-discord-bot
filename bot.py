@@ -7,17 +7,20 @@ from discord.ext import tasks
 
 bot = commands.Bot(command_prefix='!')
 bot.remove_command('help')
+
 offlineSent = False
+ipAddress = "51.89.145.251:25565"
+channelId = 803636093693460480
 
 @tasks.loop(seconds=10.0)
 async def set_status():
     global offlineSent
     try:
-        server = MinecraftServer.lookup("51.89.145.251:25565")
+        server = MinecraftServer.lookup(ipAddress)
         status = server.status()
         
         if offlineSent:
-            channel = bot.get_channel(803636093693460480)
+            channel = bot.get_channel(channelId)
             embed=discord.Embed(title="🟢 SERVER IS BACK ONLINE", description="We're back! Come join us again.", color=0x54ce4b)
             await channel.send(embed=embed, delete_after=900.0)
             offlineSent = False
@@ -27,7 +30,7 @@ async def set_status():
         else:
             pres, msg = discord.Status.online, f"{status.players.online}/{status.players.max} players."
     except ConnectionRefusedError:
-        channel = bot.get_channel(803636093693460480)
+        channel = bot.get_channel(channelId)
         pres, msg = discord.Status.dnd, "server is offline!"
 
         if not offlineSent:
@@ -42,7 +45,7 @@ async def set_status():
 @bot.command()
 async def status(ctx):
     try:
-        server = MinecraftServer.lookup("51.89.145.251:25565")
+        server = MinecraftServer.lookup(ipAddress)
         status, query = server.status(), server.query()
 
         embed=discord.Embed(title="🟢 ONLINE", color=0x54ce4b)
@@ -59,7 +62,7 @@ async def status(ctx):
 
 @bot.command()
 async def ip(ctx):
-    await ctx.send("🖥️ Connect via `noahsuckscharlie.serv.gs` or `51.89.145.251:25565`. Make sure you're whitelisted!")
+    await ctx.send(f"🖥️ Connect via `{ipAddress}` - make sure you're whitelisted!")
 
 @bot.event
 async def on_ready():
